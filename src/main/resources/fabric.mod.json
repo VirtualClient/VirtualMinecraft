@@ -1,0 +1,26 @@
+
+{
+  "schemaVersion": 1,
+  "id": "virtualminecraft",
+  "name": "VirtualMinecraft",
+  "version": "${version}",
+  "environment": "*",
+  "authors": [
+    "VirtualClient Team"
+  ],
+  "depends": {
+    "fabricloader": "*"
+  },
+  "description": "VirtualMinecraft",
+  "mixins": [
+    "virtualminecraft.mixin.json"
+  ],
+  "custom": {
+    "modmenu": {
+      "badges": [ "library" ],
+      "parent": {
+        "id": "virtualclient"
+      }
+    }
+  }
+}
