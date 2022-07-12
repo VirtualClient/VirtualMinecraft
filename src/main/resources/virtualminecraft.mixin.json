@@ -9,6 +9,7 @@
     "KeyboardMixin"
   ],
   "client": [
+    "InGameHudMixin",
     "MinecraftClientMixin"
   ]
 }
