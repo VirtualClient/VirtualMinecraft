@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
-    public void render(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
+    public void renderPre(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
         VirtualMinecraft.getEventBus().callEvent(new GameOverlayRenderEvent(new VirtualMatrixStack(matrixStack),
                 MinecraftClient.getInstance().options.debugEnabled, tickDelta, GameOverlayRenderEvent.State.PRE));
     }
 
     @Inject(method = "render", at = @At("RETURN"))
-    public void renderTail(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
+    public void renderPost(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
         VirtualMinecraft.getEventBus().callEvent(new GameOverlayRenderEvent(new VirtualMatrixStack(matrixStack),
                 MinecraftClient.getInstance().options.debugEnabled, tickDelta, GameOverlayRenderEvent.State.POST));
     }
