@@ -32,7 +32,7 @@ configure<PublishingExtension> {
         maven {
             name = "virtualclientRepository"
             credentials(PasswordCredentials::class)
-            url = uri("https://repo.virtualclient.gg/artifactory/virtualclient/")
+            url = uri("https://repo.virtualclient.gg/artifactory/virtualclient-public/")
         }
     }
     publications {
