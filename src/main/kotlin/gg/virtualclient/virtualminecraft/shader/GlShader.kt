@@ -1,7 +1,8 @@
 //MC below 1.17
 package gg.virtualclient.virtualminecraft.shader
 
-//#MC<11700
+//#if MC<11700
+
 //$$
 //$$ import com.mojang.blaze3d.systems.RenderSystem
 //$$ import gg.virtualclient.virtualminecraft.VirtualRenderSystem
@@ -226,4 +227,5 @@ package gg.virtualclient.virtualminecraft.shader
 //$$         }
 //$$     }
 //$$ }
+
 //#endif

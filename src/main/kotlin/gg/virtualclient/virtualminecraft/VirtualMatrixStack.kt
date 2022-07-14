@@ -51,7 +51,13 @@ class VirtualMatrixStack private constructor(
     //#if MC>=11600
     constructor(mc: MatrixStack) : this(mc.peek())
     constructor(mc: MatrixStack.Entry) : this(ArrayDeque<Entry>().apply {
-        add(Entry(mc.positionMatrix, mc.normalMatrix))
+        add(Entry(
+            //#if MC>=11802
+            mc.positionMatrix, mc.normalMatrix
+            //#else
+            //$$ mc.model, mc.normal
+            //#endif
+        ))
     })
     fun toMC() = peek().toMCStack()
     //#endif
@@ -235,8 +241,13 @@ class VirtualMatrixStack private constructor(
     data class Entry(val model: Matrix4f, val normal: Matrix3f) {
         //#if MC>=11600
         fun toMCStack() = MatrixStack().also {
+            //#if MC>=11802
             it.peek().positionMatrix.multiply(model)
             it.peek().normalMatrix.multiply(normal)
+            //#else
+            //$$ it.peek().model.multiply(model)
+            //$$ it.peek().normal.multiply(normal)
+            //#endif
         }
         //#endif
 

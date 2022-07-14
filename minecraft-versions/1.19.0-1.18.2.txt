@@ -1,0 +1,1 @@
+net.minecraft.client.render.VertexFormats TEXTURE_ELEMENT TEXTURE_0_ELEMENT

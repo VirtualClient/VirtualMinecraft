@@ -14,7 +14,7 @@ object TextHelper {
         //#if MC>=11900
         return Text.translatable(str)
         //#else
-        //$$ return new TranslatableText(str);
+        //$$ return TranslatableText(str)
         //#endif
     }
 
@@ -23,7 +23,7 @@ object TextHelper {
         //#if MC>=11900
         return Text.translatable(str, objects)
         //#else
-        //$$ return new TranslatableText(str, objects);
+        //$$ return TranslatableText(str, objects)
         //#endif
     }
 
@@ -32,7 +32,7 @@ object TextHelper {
         //#if MC>=11900
         return Text.of(str)
         //#else
-        //$$ return new LiteralText(str);
+        //$$ return LiteralText(str)
         //#endif
     }
 
@@ -41,7 +41,7 @@ object TextHelper {
         //#if MC>=11900
         return Text.empty()
         //#else
-        //$$ return LiteralText.EMPTY;
+        //$$ return LiteralText.EMPTY
         //#endif
     }
 }

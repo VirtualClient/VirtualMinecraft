@@ -1,6 +1,7 @@
 // MC 1.17+
 package gg.virtualclient.virtualminecraft.shader
 
+//#if MC>=11700
 import com.google.common.collect.ImmutableMap
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gl.GlUniform
@@ -236,3 +237,4 @@ internal enum class UniformType(val typeName: String, val glslName: String, val 
             values().find { it.glslName == glslName } ?: throw NoSuchElementException(glslName)
     }
 }
+//#endif
