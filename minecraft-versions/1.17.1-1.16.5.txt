@@ -15,3 +15,6 @@ com.mojang.blaze3d.platform.GlStateManager glGetShaderi() getShader()
 com.mojang.blaze3d.platform.GlStateManager glGetShaderInfoLog() getShaderInfoLog()
 com.mojang.blaze3d.platform.GlStateManager glAttachShader() attachShader()
 com.mojang.blaze3d.platform.GlStateManager glLinkProgram() linkProgram()
+
+com.mojang.blaze3d.platform.TextureUtil net.minecraft.client.texture.TextureUtil
+com.mojang.blaze3d.platform.TextureUtil prepareImage() allocate()
