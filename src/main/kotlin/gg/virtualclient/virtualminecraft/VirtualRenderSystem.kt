@@ -261,4 +261,19 @@ object VirtualRenderSystem {
     }
 
 
+    fun enableTexture2D() {
+        //#if MC>=11502
+        RenderSystem.enableTexture()
+        //#else
+        //$$ GlStateManager.enableTexture2D()
+        //#endif
+    }
+
+    fun disableTexture2D() {
+        //#if MC>=11502
+        RenderSystem.disableTexture();
+        //#else
+        //$$ GlStateManager.disableTexture2D()
+        //#endif
+    }
 }

@@ -28,6 +28,21 @@ object VirtualKeyboard {
     }
 
     @JvmStatic
+    fun isKeyComboCtrlA(key: Int): Boolean = key == Key.KEY_A.getKeyCode() && isControlKeyDown() && !isShiftKeyDown() && !isAltKeyDown()
+    @JvmStatic
+    fun isKeyComboCtrlC(key: Int): Boolean = key == Key.KEY_C.getKeyCode() && isControlKeyDown() && !isShiftKeyDown() && !isAltKeyDown()
+    @JvmStatic
+    fun isKeyComboCtrlV(key: Int): Boolean = key == Key.KEY_V.getKeyCode() && isControlKeyDown() && !isShiftKeyDown() && !isAltKeyDown()
+    @JvmStatic
+    fun isKeyComboCtrlX(key: Int): Boolean = key == Key.KEY_X.getKeyCode() && isControlKeyDown() && !isShiftKeyDown() && !isAltKeyDown()
+    @JvmStatic
+    fun isKeyComboCtrlY(key: Int): Boolean = key == Key.KEY_Y.getKeyCode() && isControlKeyDown() && !isShiftKeyDown() && !isAltKeyDown()
+    @JvmStatic
+    fun isKeyComboCtrlZ(key: Int): Boolean = key == Key.KEY_Z.getKeyCode() && isControlKeyDown() && !isShiftKeyDown() && !isAltKeyDown()
+    @JvmStatic
+    fun isKeyComboCtrlShiftZ(key: Int): Boolean = key == Key.KEY_Z.getKeyCode() && isControlKeyDown() && isShiftKeyDown() && !isAltKeyDown()
+
+    @JvmStatic
     fun isKeyPressed(key: Int): Boolean {
         if(Key.UNKNOWN.getKeyCode() == key)
             return false
@@ -38,5 +53,7 @@ object VirtualKeyboard {
     fun isKeyPressed(key: Key): Boolean {
         return isKeyPressed(key.getKeyCode())
     }
+
+
 
 }

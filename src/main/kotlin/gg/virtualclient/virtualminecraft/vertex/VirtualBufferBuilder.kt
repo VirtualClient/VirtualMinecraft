@@ -34,6 +34,14 @@ class VirtualBufferBuilder(private val handle: BufferBuilder) : VirtualVertexCon
         return beginWithActiveShader(mode, format)
     }
 
+    fun beginWithActiveShader(mode: DrawMode, format: CommonVertexFormats): VirtualBufferBuilder {
+        return beginWithActiveShader(mode, format.mcFormat)
+    }
+
+    fun beginWithDefaultShader(mode: DrawMode, format: CommonVertexFormats): VirtualBufferBuilder {
+        return beginWithDefaultShader(mode, format.mcFormat)
+    }
+
     companion object {
         //#if MC>=11700
         @JvmStatic

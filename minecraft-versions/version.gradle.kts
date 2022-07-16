@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     `java-library`
     kotlin("jvm")
@@ -15,16 +17,13 @@ repositories {
 }
 
 dependencies {
-    api("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
+    api(kotlin("stdlib"))
 
-    implementation("net.kyori:adventure-api:4.10.1")
-    implementation("net.kyori:adventure-text-serializer-gson:4.10.1")
-    implementation("gg.virtualclient:VirtualEvents:1.0-SNAPSHOT")
+    api("net.kyori:adventure-api:4.10.1")
+    api("net.kyori:adventure-text-serializer-gson:4.10.1")
+    api("net.kyori:adventure-text-serializer-legacy:4.10.1")
+    implementation("gg.virtualclient:VirtualEvents:1.0.1-SNAPSHOT")
 
-}
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 configure<PublishingExtension> {

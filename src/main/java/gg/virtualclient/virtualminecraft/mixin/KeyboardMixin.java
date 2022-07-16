@@ -27,13 +27,14 @@ public class KeyboardMixin {
 
     @Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
     public void handleKey(long window, int key, int scancode, int action, int j, CallbackInfo info) {
-        KeyEvent keyEvent = new KeyEvent(Key.ofKeyCode(key),
-                scancode, switch (action) {
-            case GLFW.GLFW_PRESS -> KeyState.PRESSED;
-            case GLFW.GLFW_RELEASE -> KeyState.RELEASED;
-            case GLFW.GLFW_REPEAT -> KeyState.HOLD;
-            default -> throw new IllegalStateException("Unexpected value: " + action);
-        });
+        KeyState keyState = KeyState.fromGLFW(action);
+        if(keyState == null)
+            return;
+        KeyEvent keyEvent = new KeyEvent(Key.ofKeyCode(key), scancode, keyState);
+        VirtualMinecraft.getEventBus().callEvent(keyEvent);
+        if(keyEvent.isCancelled()) {
+            info.cancel();
+        }
         VirtualMinecraft.getEventBus().callEvent(keyEvent);
         if(keyEvent.isCancelled()) {
             info.cancel();
