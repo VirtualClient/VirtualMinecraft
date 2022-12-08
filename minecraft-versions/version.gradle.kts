@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     `java-library`
     kotlin("jvm")
-    id("gg.essential.multi-version")
-    id("gg.essential.defaults")
+    id("gg.virtualclient.multi-version")
+    id("gg.virtualclient.defaults")
     id("maven-publish")
 }
 

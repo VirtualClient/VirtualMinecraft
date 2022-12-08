@@ -8,7 +8,11 @@ object VirtualKeyboard {
 
     @JvmStatic
     fun setRepeatEvents(repeatEvents: Boolean) {
+        //It seems like this was removed in 1.19.3?
+
+        //#if MC<11903
         MinecraftClient.getInstance().keyboard.setRepeatEvents(repeatEvents)
+        //#endif
     }
 
     fun isControlKeyDown(): Boolean {

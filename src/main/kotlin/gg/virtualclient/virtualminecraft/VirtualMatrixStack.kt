@@ -67,7 +67,9 @@ class VirtualMatrixStack private constructor(
     fun translate(x: Float, y: Float, z: Float) {
         if (x == 0f && y == 0f && z == 0f) return
         stack.last.run {
-            //#if MC>=11400
+            //#if MC>=11903
+            //$$ model.translate(x, y, z)
+            //#elseif MC>=11400
             model.multiply(Matrix4f.translate(x, y, z))
             //#else
             //$$ Matrix4f.translate(Vector3f(x, y, z), model, model)
@@ -80,14 +82,18 @@ class VirtualMatrixStack private constructor(
     fun scale(x: Float, y: Float, z: Float) {
         if (x == 1f && y == 1f && z == 1f) return
         return stack.last.run {
-            //#if MC>=11400
+            //#if MC>=11903
+            //$$ model.scale(x, y, z)
+            //#elseif MC>=11400
             model.multiply(Matrix4f.scale(x, y, z))
             //#else
             //$$ Matrix4f.scale(Vector3f(x, y, z), model, model)
             //#endif
             if (x == y && y == z) {
                 if (x < 0f) {
-                    //#if MC>=11400
+                    //#if MC>=11903
+                    //$$ normal.scale(-1f)
+                    //#elseif MC>=11400
                     normal.multiply(-1f)
                     //#else
                     //$$ Matrix3f.negate(normal, normal)
@@ -102,7 +108,10 @@ class VirtualMatrixStack private constructor(
                 //#else
                 //$$ val rt = Math.cbrt((ix * iy * iz).toDouble()).toFloat()
                 //#endif
-                //#if MC>=11400
+
+                //#if MC>=11903
+                //$$ normal.scale(rt * ix, rt * iy, rt * iz)
+                //#elseif MC>=11400
                 normal.multiply(Matrix3f.scale(rt * ix, rt * iy, rt * iz))
                 //#else
                 //$$ val scale = Matrix3f()
@@ -119,7 +128,11 @@ class VirtualMatrixStack private constructor(
     fun rotate(angle: Float, x: Float, y: Float, z: Float, degrees: Boolean = true) {
         if (angle == 0f) return
         stack.last.run {
-            //#if MC>=11400
+
+            //#if MC>=11903
+            //$$ val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
+            //$$ multiply(Quaternionf().rotateAxis(angleRadians, x, y, z));
+            //#elseif MC>=11400
             multiply(Quaternion(Vec3f(x, y, z), angle, degrees));
             //#else
             //$$ val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
@@ -157,7 +170,10 @@ class VirtualMatrixStack private constructor(
     }
 
     fun multiply(quaternion: Quaternion): Unit = stack.last.run {
-        //#if MC>=11400
+        //#if MC>=11903
+        //$$ model.rotate(quaternion)
+        //$$ normal.rotate(quaternion)
+        //#elseif MC>=11400
         model.multiply(quaternion)
         normal.multiply(quaternion)
         //#else
@@ -180,13 +196,11 @@ class VirtualMatrixStack private constructor(
     fun isEmpty(): Boolean = stack.size == 1
 
     fun applyToGlobalState() {
-        //#if MC>=11800
+        //#if MC>=11700
         // FIXME preprocessor bug: should remap the intermediary name to yarn no problem
         RenderSystem.getModelViewStack().multiplyPositionMatrix(stack.last.model)
-        //#elseif MC>=11700
-        //$$ RenderSystem.getModelViewStack().method_34425(stack.last.model)
         //#else
-        //$$ stack.last.model.writeToBuffer(MATRIX_BUFFER)
+        //$$ stack.last.model.writeRowFirst(MATRIX_BUFFER)
         //$$ // Explicit cast to Buffer required so we do not use the JDK9+ override in FloatBuffer
         //$$ (MATRIX_BUFFER as Buffer).rewind()
         //#if MC>=11500
@@ -252,11 +266,13 @@ class VirtualMatrixStack private constructor(
         //#endif
 
         fun deepCopy() =
-            //#if MC>=11400
+            //#if MC>=11903
+            //$$ Entry(Matrix4f(model), Matrix3f(normal))
+            //#elseif MC>=11400
             Entry(model.copy(), normal.copy())
-        //#else
-        //$$ Entry(Matrix4f.load(model, null), Matrix3f.load(normal, null))
-        //#endif
+            //#else
+            //$$ Entry(Matrix4f.load(model, null), Matrix3f.load(normal, null))
+            //#endif
     }
 
     companion object {

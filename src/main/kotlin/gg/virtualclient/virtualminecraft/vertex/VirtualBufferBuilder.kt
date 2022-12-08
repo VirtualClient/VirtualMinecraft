@@ -4,6 +4,9 @@ import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.render.*
 import java.util.function.Supplier
 
+//#if MC>=11903
+//$$ import net.minecraft.client.gl.ShaderProgram
+//#endif
 
 class VirtualBufferBuilder(private val handle: BufferBuilder) : VirtualVertexConsumer(handle) {
 
