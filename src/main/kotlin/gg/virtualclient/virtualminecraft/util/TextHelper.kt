@@ -2,7 +2,7 @@ package gg.virtualclient.virtualminecraft.util
 
 import net.minecraft.text.Text
 
-//#if MC<=11900
+//#if MC<11900
 //$$ import net.minecraft.text.LiteralText;
 //$$ import net.minecraft.text.TranslatableText;
 //#endif
