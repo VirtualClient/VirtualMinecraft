@@ -2,10 +2,10 @@ package gg.virtualclient.virtualminecraft
 
 import java.util.*
 
-import net.minecraft.util.math.Matrix4f
-import net.minecraft.util.math.Matrix3f
-import net.minecraft.util.math.Quaternion
-import net.minecraft.util.math.Vec3f
+import org.joml.Matrix4f
+import org.joml.Matrix3f
+import org.joml.Quaternionf
+import org.joml.Vector3f
 
 //#if MC>=11700
 import com.mojang.blaze3d.systems.RenderSystem
@@ -43,8 +43,8 @@ class VirtualMatrixStack private constructor(
 
     constructor() : this(ArrayDeque<Entry>().apply {
         add(Entry(
-            Matrix4f().apply { loadIdentity() },
-            Matrix3f().apply { loadIdentity() }
+            Matrix4f().apply { identity() },
+            Matrix3f().apply { identity() }
         ))
     })
 
@@ -68,9 +68,9 @@ class VirtualMatrixStack private constructor(
         if (x == 0f && y == 0f && z == 0f) return
         stack.last.run {
             //#if MC>=11903
-            //$$ model.translate(x, y, z)
+            model.translate(x, y, z)
             //#elseif MC>=11400
-            model.multiply(Matrix4f.translate(x, y, z))
+            //$$ model.multiply(Matrix4f.translate(x, y, z))
             //#else
             //$$ Matrix4f.translate(Vector3f(x, y, z), model, model)
             //#endif
@@ -83,18 +83,18 @@ class VirtualMatrixStack private constructor(
         if (x == 1f && y == 1f && z == 1f) return
         return stack.last.run {
             //#if MC>=11903
-            //$$ model.scale(x, y, z)
+            model.scale(x, y, z)
             //#elseif MC>=11400
-            model.multiply(Matrix4f.scale(x, y, z))
+            //$$ model.multiply(Matrix4f.scale(x, y, z))
             //#else
             //$$ Matrix4f.scale(Vector3f(x, y, z), model, model)
             //#endif
             if (x == y && y == z) {
                 if (x < 0f) {
                     //#if MC>=11903
-                    //$$ normal.scale(-1f)
+                    normal.scale(-1f)
                     //#elseif MC>=11400
-                    normal.multiply(-1f)
+                    //$$ normal.multiply(-1f)
                     //#else
                     //$$ Matrix3f.negate(normal, normal)
                     //#endif
@@ -110,9 +110,9 @@ class VirtualMatrixStack private constructor(
                 //#endif
 
                 //#if MC>=11903
-                //$$ normal.scale(rt * ix, rt * iy, rt * iz)
+                normal.scale(rt * ix, rt * iy, rt * iz)
                 //#elseif MC>=11400
-                normal.multiply(Matrix3f.scale(rt * ix, rt * iy, rt * iz))
+                //$$ normal.multiply(Matrix3f.scale(rt * ix, rt * iy, rt * iz))
                 //#else
                 //$$ val scale = Matrix3f()
                 //$$ scale.m00 = rt * ix
@@ -130,10 +130,10 @@ class VirtualMatrixStack private constructor(
         stack.last.run {
 
             //#if MC>=11903
-            //$$ val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
-            //$$ multiply(Quaternionf().rotateAxis(angleRadians, x, y, z));
+            val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
+            multiply(Quaternionf().rotateAxis(angleRadians, x, y, z));
             //#elseif MC>=11400
-            multiply(Quaternion(Vec3f(x, y, z), angle, degrees));
+            //$$ multiply(Quaternion(Vec3f(x, y, z), angle, degrees));
             //#else
             //$$ val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
             //$$ val axis = Vector3f(x, y, z)
@@ -169,13 +169,13 @@ class VirtualMatrixStack private constructor(
         }
     }
 
-    fun multiply(quaternion: Quaternion): Unit = stack.last.run {
+    fun multiply(quaternion: Quaternionf): Unit = stack.last.run {
         //#if MC>=11903
-        //$$ model.rotate(quaternion)
-        //$$ normal.rotate(quaternion)
+        model.rotate(quaternion)
+        normal.rotate(quaternion)
         //#elseif MC>=11400
-        model.multiply(quaternion)
-        normal.multiply(quaternion)
+        //$$ model.multiply(quaternion)
+        //$$ normal.multiply(quaternion)
         //#else
         //$$ TODO("lwjgl quaternion multiply") // there seems to be no existing methods to do this
         //#endif
@@ -256,8 +256,8 @@ class VirtualMatrixStack private constructor(
         //#if MC>=11600
         fun toMCStack() = MatrixStack().also {
             //#if MC>=11802
-            it.peek().positionMatrix.multiply(model)
-            it.peek().normalMatrix.multiply(normal)
+            it.peek().positionMatrix.mul(model)
+            it.peek().normalMatrix.mul(normal)
             //#else
             //$$ it.peek().model.multiply(model)
             //$$ it.peek().normal.multiply(normal)
@@ -267,9 +267,9 @@ class VirtualMatrixStack private constructor(
 
         fun deepCopy() =
             //#if MC>=11903
-            //$$ Entry(Matrix4f(model), Matrix3f(normal))
+            Entry(Matrix4f(model), Matrix3f(normal))
             //#elseif MC>=11400
-            Entry(model.copy(), normal.copy())
+            //$$ Entry(model.copy(), normal.copy())
             //#else
             //$$ Entry(Matrix4f.load(model, null), Matrix3f.load(normal, null))
             //#endif

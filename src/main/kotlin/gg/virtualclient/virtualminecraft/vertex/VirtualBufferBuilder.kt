@@ -5,7 +5,7 @@ import net.minecraft.client.render.*
 import java.util.function.Supplier
 
 //#if MC>=11903
-//$$ import net.minecraft.client.gl.ShaderProgram
+import net.minecraft.client.gl.ShaderProgram
 //#endif
 
 class VirtualBufferBuilder(private val handle: BufferBuilder) : VirtualVertexConsumer(handle) {
@@ -48,18 +48,18 @@ class VirtualBufferBuilder(private val handle: BufferBuilder) : VirtualVertexCon
     companion object {
         //#if MC>=11700
         @JvmStatic
-        private val defaultShaders: MutableMap<VertexFormat, Supplier<Shader?>> = mutableMapOf(
-            Pair(VertexFormats.LINES, Supplier { GameRenderer.getRenderTypeLinesShader() }),
-            Pair(VertexFormats.POSITION_TEXTURE_COLOR_LIGHT, Supplier { GameRenderer.getParticleShader() }),
-            Pair(VertexFormats.POSITION, Supplier { GameRenderer.getPositionShader() }),
-            Pair(VertexFormats.POSITION_COLOR, Supplier { GameRenderer.getPositionColorShader() }),
-            Pair(VertexFormats.POSITION_COLOR_LIGHT, Supplier { GameRenderer.getPositionColorLightmapShader() }),
-            Pair(VertexFormats.POSITION_TEXTURE, Supplier { GameRenderer.getPositionTexShader() }),
-            Pair(VertexFormats.POSITION_COLOR_TEXTURE, Supplier { GameRenderer.getPositionColorTexShader() }),
-            Pair(VertexFormats.POSITION_TEXTURE_COLOR, Supplier { GameRenderer.getPositionTexColorShader() }),
-            Pair(VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, Supplier { GameRenderer.getPositionColorTexLightmapShader() }),
-            Pair(VertexFormats.POSITION_TEXTURE_LIGHT_COLOR, Supplier { GameRenderer.getPositionTexLightmapColorShader() }),
-            Pair(VertexFormats.POSITION_TEXTURE_COLOR_NORMAL, Supplier { GameRenderer.getPositionTexColorNormalShader() }),
+        private val defaultShaders: MutableMap<VertexFormat, Supplier<ShaderProgram?>> = mutableMapOf(
+            Pair(VertexFormats.LINES, Supplier { GameRenderer.getRenderTypeLinesProgram() }),
+            Pair(VertexFormats.POSITION_TEXTURE_COLOR_LIGHT, Supplier { GameRenderer.getParticleProgram() }),
+            Pair(VertexFormats.POSITION, Supplier { GameRenderer.getPositionProgram() }),
+            Pair(VertexFormats.POSITION_COLOR, Supplier { GameRenderer.getPositionColorProgram() }),
+            Pair(VertexFormats.POSITION_COLOR_LIGHT, Supplier { GameRenderer.getPositionColorLightmapProgram() }),
+            Pair(VertexFormats.POSITION_TEXTURE, Supplier { GameRenderer.getPositionTexProgram() }),
+            Pair(VertexFormats.POSITION_COLOR_TEXTURE, Supplier { GameRenderer.getPositionColorTexProgram() }),
+            Pair(VertexFormats.POSITION_TEXTURE_COLOR, Supplier { GameRenderer.getPositionTexColorProgram() }),
+            Pair(VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, Supplier { GameRenderer.getPositionColorTexLightmapProgram() }),
+            Pair(VertexFormats.POSITION_TEXTURE_LIGHT_COLOR, Supplier { GameRenderer.getPositionTexLightmapColorProgram() }),
+            Pair(VertexFormats.POSITION_TEXTURE_COLOR_NORMAL, Supplier { GameRenderer.getPositionTexColorNormalProgram() }),
         )
         //#endif
 

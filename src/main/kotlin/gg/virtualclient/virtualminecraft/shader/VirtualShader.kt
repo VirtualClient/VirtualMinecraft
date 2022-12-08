@@ -1,7 +1,7 @@
 package gg.virtualclient.virtualminecraft.shader
 
 //#if MC>=11700
-import net.minecraft.client.render.Shader
+import net.minecraft.client.gl.ShaderProgram
 //#endif
 
 interface VirtualShader {
@@ -36,7 +36,7 @@ interface VirtualShader {
         }
 
         //#if MC>=11700
-        fun fromMcShader(shader: Shader, blendState: BlendState): VirtualShader {
+        fun fromMcShader(shader: ShaderProgram, blendState: BlendState): VirtualShader {
             return MCShader(shader, blendState)
         }
         //#endif

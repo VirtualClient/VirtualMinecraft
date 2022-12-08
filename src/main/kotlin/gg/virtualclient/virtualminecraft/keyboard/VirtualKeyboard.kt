@@ -11,7 +11,7 @@ object VirtualKeyboard {
         //It seems like this was removed in 1.19.3?
 
         //#if MC<11903
-        MinecraftClient.getInstance().keyboard.setRepeatEvents(repeatEvents)
+        //$$ MinecraftClient.getInstance().keyboard.setRepeatEvents(repeatEvents)
         //#endif
     }
 

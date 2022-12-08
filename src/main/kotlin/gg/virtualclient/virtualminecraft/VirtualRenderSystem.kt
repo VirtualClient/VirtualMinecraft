@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL13
 
 //#if MC>=11605
-//$$ import org.lwjgl.opengl.GL14
+import org.lwjgl.opengl.GL14
 //#endif
 
 object VirtualRenderSystem {

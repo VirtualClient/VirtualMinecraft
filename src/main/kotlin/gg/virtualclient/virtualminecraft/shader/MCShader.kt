@@ -5,7 +5,7 @@ package gg.virtualclient.virtualminecraft.shader
 import com.google.common.collect.ImmutableMap
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gl.GlUniform
-import net.minecraft.client.render.Shader
+import net.minecraft.client.gl.ShaderProgram
 import net.minecraft.client.render.VertexFormat
 import net.minecraft.client.render.VertexFormatElement
 import net.minecraft.client.render.VertexFormats
@@ -15,11 +15,11 @@ import java.io.FileNotFoundException
 import kotlin.NoSuchElementException
 
 //#if MC>=11903
-//$$ import net.minecraft.resource.InputSupplier
-//$$ import net.minecraft.resource.ResourcePack
-//$$ import net.minecraft.resource.ResourceType
-//$$ import net.minecraft.resource.metadata.ResourceMetadataReader
-//$$ import java.io.InputStream
+import net.minecraft.resource.InputSupplier
+import net.minecraft.resource.ResourcePack
+import net.minecraft.resource.ResourceType
+import net.minecraft.resource.metadata.ResourceMetadataReader
+import java.io.InputStream
 //#endif
 
 //#if MC>=11900
@@ -30,7 +30,7 @@ import java.util.Optional
 //#endif
 
 internal class MCShader(
-    private val mc: Shader,
+    private val mc: ShaderProgram,
     private val blendState: BlendState
 ) : VirtualShader {
     override var usable = true
@@ -105,9 +105,9 @@ internal class MCShader(
                     else -> throw FileNotFoundException(id.toString())
                 }
                 //#if MC>=11903
-                //$$ Optional.of(Resource(GeneratedContentPack, content::byteInputStream))
+                Optional.of(Resource(GeneratedContentPack, content::byteInputStream))
                 //#elseif MC>=11900
-                Optional.of(Resource("__generated__", content::byteInputStream))
+                //$$ Optional.of(Resource("__generated__", content::byteInputStream))
                 //#else
                 //$$ ResourceImpl("__generated__", id, content.byteInputStream(), null)
                 //#endif
@@ -117,45 +117,45 @@ internal class MCShader(
             val vertexFormat = VertexFormat(ImmutableMap.copyOf(transformer.attributes))
 
             val name = DigestUtils.sha1Hex(json).lowercase()
-            return MCShader(Shader(factory, name, vertexFormat), blendState)
+            return MCShader(ShaderProgram(factory, name, vertexFormat), blendState)
         }
     }
 }
 
 //#if MC>=11903
-//$$ internal object GeneratedContentPack : ResourcePack {
-//$$     override fun close() { throw UnsupportedOperationException() }
-//$$
-//$$     override fun openRoot(vararg strings: String?): InputSupplier<InputStream>? {
-//$$         throw UnsupportedOperationException()
-//$$     }
-//$$
-//$$     override fun open(resourceType: ResourceType?, identifier: Identifier?): InputSupplier<InputStream>? {
-//$$         throw UnsupportedOperationException()
-//$$     }
-//$$
-//$$     override fun findResources(
-//$$         resourceType: ResourceType?,
-//$$         string: String?,
-//$$         string2: String?,
-//$$         resultConsumer: ResourcePack.ResultConsumer?
-//$$     ) {
-//$$         throw UnsupportedOperationException()
-//$$     }
-//$$
-//$$     override fun getNamespaces(resourceType: ResourceType?): MutableSet<String> {
-//$$         throw UnsupportedOperationException()
-//$$     }
-//$$
-//$$     override fun <T : Any?> parseMetadata(resourceMetadataReader: ResourceMetadataReader<T>?): T? {
-//$$         throw UnsupportedOperationException()
-//$$     }
-//$$
-//$$     override fun getName(): String {
-//$$         return "__generated__"
-//$$     }
-//$$
-//$$ }
+internal object GeneratedContentPack : ResourcePack {
+    override fun close() { throw UnsupportedOperationException() }
+
+    override fun openRoot(vararg strings: String?): InputSupplier<InputStream>? {
+        throw UnsupportedOperationException()
+    }
+
+    override fun open(resourceType: ResourceType?, identifier: Identifier?): InputSupplier<InputStream>? {
+        throw UnsupportedOperationException()
+    }
+
+    override fun findResources(
+        resourceType: ResourceType?,
+        string: String?,
+        string2: String?,
+        resultConsumer: ResourcePack.ResultConsumer?
+    ) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getNamespaces(resourceType: ResourceType?): MutableSet<String> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun <T : Any?> parseMetadata(resourceMetadataReader: ResourceMetadataReader<T>?): T? {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getName(): String {
+        return "__generated__"
+    }
+
+}
 //#endif
 
 internal class MCShaderUniform(val mc: GlUniform) : ShaderUniform, IntUniform, FloatUniform, Float2Uniform, Float3Uniform, Float4Uniform, FloatMatrixUniform {
@@ -175,7 +175,7 @@ internal class MCShaderUniform(val mc: GlUniform) : ShaderUniform, IntUniform, F
     override fun setValue(array: FloatArray) = mc.set(array)
 }
 
-internal class MCSamplerUniform(val mc: Shader, val name: String) : SamplerUniform {
+internal class MCSamplerUniform(val mc: ShaderProgram, val name: String) : SamplerUniform {
     override val location: Int = 0
 
     override fun setValue(textureId: Int) {
