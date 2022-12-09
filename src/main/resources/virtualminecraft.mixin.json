@@ -10,6 +10,7 @@
   ],
   "client": [
     "InGameHudMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "ModelPartAccessorMixin"
   ]
 }
