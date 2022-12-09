@@ -9,6 +9,7 @@ import org.joml.Vector3f
 
 //#if MC>=11700
 import com.mojang.blaze3d.systems.RenderSystem
+import gg.virtualclient.virtualminecraft.util.newQuaternion
 //#endif
 
 //#if MC>=11605
@@ -129,11 +130,8 @@ class VirtualMatrixStack private constructor(
         if (angle == 0f) return
         stack.last.run {
 
-            //#if MC>=11903
-            val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
-            multiply(Quaternionf().rotateAxis(angleRadians, x, y, z));
-            //#elseif MC>=11400
-            //$$ multiply(Quaternion(Vec3f(x, y, z), angle, degrees));
+            //#if MC>=11400
+            multiply(newQuaternion(x, y, z, angle, degrees))
             //#else
             //$$ val angleRadians = if (degrees) Math.toRadians(angle.toDouble()).toFloat() else angle
             //$$ val axis = Vector3f(x, y, z)
