@@ -6,10 +6,10 @@ import org.joml.Matrix4f
 import org.joml.Matrix3f
 import org.joml.Quaternionf
 import org.joml.Vector3f
+import gg.virtualclient.virtualminecraft.util.newQuaternion
 
 //#if MC>=11700
 import com.mojang.blaze3d.systems.RenderSystem
-import gg.virtualclient.virtualminecraft.util.newQuaternion
 //#endif
 
 //#if MC>=11605
