@@ -1,6 +1,5 @@
 package gg.virtualclient.virtualminecraft.keyboard
 
-import gg.virtualclient.virtualminecraft.VirtualMinecraft
 import net.minecraft.client.MinecraftClient
 import org.lwjgl.glfw.GLFW
 
@@ -16,7 +15,7 @@ object VirtualKeyboard {
     }
 
     fun isControlKeyDown(): Boolean {
-        if(VirtualMinecraft.isRunningOnMac) {
+        if(MinecraftClient.IS_SYSTEM_MAC) {
             //MacOS has the super key as their control key
             return isKeyPressed(Key.KEY_LEFT_SUPER) || isKeyPressed(Key.KEY_RIGHT_SUPER)
         }

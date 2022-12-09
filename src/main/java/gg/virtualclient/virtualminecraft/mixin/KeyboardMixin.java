@@ -2,16 +2,15 @@ package gg.virtualclient.virtualminecraft.mixin;
 
 import gg.virtualclient.virtualminecraft.DebugKey;
 import gg.virtualclient.virtualminecraft.MinecraftDebugger;
-import gg.virtualclient.virtualminecraft.VirtualMinecraft;
 import gg.virtualclient.virtualminecraft.adventure.AdventureSupportKt;
 import gg.virtualclient.virtualminecraft.keyboard.Key;
-import gg.virtualclient.virtualminecraft.keyboard.KeyEvent;
+import gg.virtualclient.virtualminecraft.keyboard.KeyCallback;
 import gg.virtualclient.virtualminecraft.keyboard.KeyState;
+import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.util.Util;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,13 +29,9 @@ public class KeyboardMixin {
         KeyState keyState = KeyState.fromGLFW(action);
         if(keyState == null)
             return;
-        KeyEvent keyEvent = new KeyEvent(Key.ofKeyCode(key), scancode, keyState);
-        VirtualMinecraft.getEventBus().callEvent(keyEvent);
-        if(keyEvent.isCancelled()) {
-            info.cancel();
-        }
-        VirtualMinecraft.getEventBus().callEvent(keyEvent);
-        if(keyEvent.isCancelled()) {
+
+        TriState triState = KeyCallback.EVENT.invoker().onKey(Key.ofKeyCode(key), scancode, keyState, TriState.FALSE);
+        if(triState == TriState.TRUE) {
             info.cancel();
         }
     }

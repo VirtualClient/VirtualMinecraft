@@ -1,8 +1,7 @@
 package gg.virtualclient.virtualminecraft.mixin;
 
-import gg.virtualclient.virtualminecraft.VirtualMinecraft;
-import gg.virtualclient.virtualminecraft.event.ClientTickEvent;
-import gg.virtualclient.virtualminecraft.event.MinecraftWindowResizedEvent;
+import gg.virtualclient.virtualminecraft.event.ClientTickCallback;
+import gg.virtualclient.virtualminecraft.event.MinecraftWindowResizedCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Final;
@@ -21,17 +20,17 @@ public class MinecraftClientMixin {
 
     @Inject(at = @At("HEAD"), method = "tick")
     public void preTick(CallbackInfo callbackInfo) {
-        VirtualMinecraft.getEventBus().callEvent(new ClientTickEvent(ClientTickEvent.State.PRE));
+        ClientTickCallback.EVENT.invoker().tick(ClientTickCallback.State.PRE);
     }
 
     @Inject(at = @At("RETURN"), method = "tick")
     public void postTick(CallbackInfo callbackInfo) {
-        VirtualMinecraft.getEventBus().callEvent(new ClientTickEvent(ClientTickEvent.State.POST));
+        ClientTickCallback.EVENT.invoker().tick(ClientTickCallback.State.POST);
     }
 
     @Inject(at = @At("HEAD"), method = "onResolutionChanged")
     public void onResolutionChanged(CallbackInfo callbackInfo) {
-        VirtualMinecraft.getEventBus().callEvent(new MinecraftWindowResizedEvent(window.getScaledWidth(),
-                window.getScaledHeight(), window.getFramebufferWidth(), window.getFramebufferHeight()));
+        MinecraftWindowResizedCallback.EVENT.invoker().resized(window.getScaledWidth(), window.getScaledHeight(),
+                window.getFramebufferWidth(), window.getFramebufferHeight());
     }
 }

@@ -2,8 +2,7 @@ package gg.virtualclient.virtualminecraft.mixin;
 
 
 import gg.virtualclient.virtualminecraft.VirtualMatrixStack;
-import gg.virtualclient.virtualminecraft.VirtualMinecraft;
-import gg.virtualclient.virtualminecraft.event.GameOverlayRenderEvent;
+import gg.virtualclient.virtualminecraft.event.GameOverlayRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
@@ -17,14 +16,18 @@ public class InGameHudMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     public void renderPre(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
-        VirtualMinecraft.getEventBus().callEvent(new GameOverlayRenderEvent(new VirtualMatrixStack(matrixStack),
-                MinecraftClient.getInstance().options.debugEnabled, tickDelta, GameOverlayRenderEvent.State.PRE));
+        GameOverlayRenderCallback.EVENT.invoker().render(
+                new VirtualMatrixStack(matrixStack), MinecraftClient.getInstance().options.debugEnabled,
+                tickDelta, GameOverlayRenderCallback.State.PRE
+        );
     }
 
     @Inject(method = "render", at = @At("RETURN"))
     public void renderPost(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
-        VirtualMinecraft.getEventBus().callEvent(new GameOverlayRenderEvent(new VirtualMatrixStack(matrixStack),
-                MinecraftClient.getInstance().options.debugEnabled, tickDelta, GameOverlayRenderEvent.State.POST));
+        GameOverlayRenderCallback.EVENT.invoker().render(
+                new VirtualMatrixStack(matrixStack), MinecraftClient.getInstance().options.debugEnabled,
+                tickDelta, GameOverlayRenderCallback.State.POST
+        );
     }
 
 }
