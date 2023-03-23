@@ -1,6 +1,8 @@
 package gg.virtualclient.virtualminecraft.model
 
 import net.minecraft.client.model.ModelPart
+import net.minecraft.util.math.Direction
+import java.util.*
 
 //#if MC<=11605
 //$$ import gg.virtualclient.virtualminecraft.mixin.ModelPartAccessorMixin;
@@ -67,6 +69,9 @@ class ModelPartBuilder {
                 mirror,
                 textureWidth,
                 textureHeight
+                //#if MC>=11904
+                //$$ ,ALL_DIRECTIONS
+                //#endif
             )
         )
     }
@@ -83,6 +88,9 @@ class ModelPartBuilder {
             ModelPart.Cuboid(
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ,
                 0.0f, 0.0f, 0.0f, mirror, textureWidth, textureHeight
+                //#if MC>=11904
+                //$$ ,ALL_DIRECTIONS
+                //#endif
             )
         )
     }
@@ -100,6 +108,9 @@ class ModelPartBuilder {
             ModelPart.Cuboid(
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ,
                 0.0f, 0.0f, 0.0f, mirror, textureWidth, textureHeight
+                //#if MC>=11904
+                //$$ ,ALL_DIRECTIONS
+                //#endif
             )
         )
     }
@@ -117,6 +128,9 @@ class ModelPartBuilder {
             ModelPart.Cuboid(
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ, extra,
                 extra, extra, mirror, textureWidth, textureHeight
+                //#if MC>=11904
+                //$$ ,ALL_DIRECTIONS
+                //#endif
             )
         )
     }
@@ -136,6 +150,9 @@ class ModelPartBuilder {
             ModelPart.Cuboid(
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ, extraX,
                 extraY, extraZ, mirror, textureWidth, textureHeight
+                //#if MC>=11904
+                //$$ ,ALL_DIRECTIONS
+                //#endif
             )
         )
     }
@@ -154,6 +171,9 @@ class ModelPartBuilder {
             ModelPart.Cuboid(
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ,
                 extra, extra, extra, mirror, textureWidth, textureHeight
+                //#if MC>=11904
+                //$$ ,ALL_DIRECTIONS
+                //#endif
             )
         )
     }
@@ -203,5 +223,8 @@ class ModelPartBuilder {
         return modelPart
     }
 
+    companion object {
+        private val ALL_DIRECTIONS: Set<Direction> = EnumSet.allOf(Direction::class.java)
+    }
 
 }

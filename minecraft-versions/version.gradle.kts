@@ -36,7 +36,7 @@ configure<PublishingExtension> {
         create<MavenPublication>("maven") {
             groupId = "gg.virtualclient"
             artifactId = "virtualminecraft"
-            version = "1.0.2-${platform.mcVersion}-SNAPSHOT"
+            version = "1.0.3-${platform.mcVersion}-SNAPSHOT"
             from(components["java"])
             artifact(tasks.jar)
         }

@@ -7,10 +7,12 @@ import net.minecraft.text.Text
 //$$ import net.minecraft.text.TranslatableText;
 //#endif
 
-object TextHelper {
+typealias TextHelper = Components
+
+object Components {
 
     @JvmStatic
-    fun translatable(str: String?): Text {
+    fun translatable(str: String): Text {
         //#if MC>=11900
         return Text.translatable(str)
         //#else
@@ -19,7 +21,7 @@ object TextHelper {
     }
 
     @JvmStatic
-    fun translatable(str: String?, vararg objects: Any?): Text {
+    fun translatable(str: String, vararg objects: Any): Text {
         //#if MC>=11900
         return Text.translatable(str, objects)
         //#else
@@ -28,7 +30,7 @@ object TextHelper {
     }
 
     @JvmStatic
-    fun text(str: String?): Text {
+    fun text(str: String): Text {
         //#if MC>=11900
         return Text.of(str)
         //#else

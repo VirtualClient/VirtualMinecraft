@@ -111,11 +111,17 @@ abstract class VirtualScreen(title: Component) : Screen(title.asMinecraft()) {
         super.close()
     }
 
-    final override fun renderBackground(matrices: MatrixStack?, vOffset: Int) {
-        renderBackground(VirtualMatrixStack(), vOffset)
+    //#if MC<=11903
+    final override fun renderBackground(matrices: MatrixStack, vOffset: Int) {
+        renderBackground(VirtualMatrixStack(matrices))
+    }
+    //#endif
+
+    final override fun renderBackground(matrices: MatrixStack) {
+        renderBackground(VirtualMatrixStack(matrices))
     }
 
-    open fun renderBackground(matrices: VirtualMatrixStack, vOffset: Int = 0) {
-        super.renderBackground(matrices.toMC(), vOffset)
+    open fun renderBackground(matrices: VirtualMatrixStack) {
+        super.renderBackground(matrices.toMC())
     }
 }

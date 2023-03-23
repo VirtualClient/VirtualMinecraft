@@ -262,7 +262,9 @@ object VirtualRenderSystem {
 
 
     fun enableTexture2D() {
-        //#if MC>=11502
+        //#if MC>=11904
+        //$$ //Unsupported on 1.19.4?
+        //#elseif MC>=11502
         RenderSystem.enableTexture()
         //#else
         //$$ GlStateManager.enableTexture2D()
@@ -270,7 +272,9 @@ object VirtualRenderSystem {
     }
 
     fun disableTexture2D() {
-        //#if MC>=11502
+        //#if MC>=11904
+        //$$ //Unsupported on 1.19.4?
+        //#elseif MC>=11502
         RenderSystem.disableTexture();
         //#else
         //$$ GlStateManager.disableTexture2D()
