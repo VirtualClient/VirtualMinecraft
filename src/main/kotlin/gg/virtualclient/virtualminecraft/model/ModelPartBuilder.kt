@@ -210,10 +210,10 @@ class ModelPartBuilder {
         //#if MC>=11701
         val modelPart = ModelPart(cuboids, children)
         //#else
-        //$$ ModelPart modelPart = new ModelPart((int) textureWidth, (int) textureHeight, textureOffsetU, textureOffsetV);
-        //$$ this.children.forEach((s, modelPart1) -> modelPart.addChild(modelPart1));
-        //$$ for (ModelPart.Cuboid cuboid : this.cuboids) {
-        //$$     ((ModelPartAccessorMixin) modelPart).getCuboids().add(cuboid);
+        //$$ val modelPart = ModelPart(textureWidth.toInt(), textureHeight.toInt(), textureOffsetU, textureOffsetV);
+        //$$ this.children.forEach { (_, part) -> modelPart.addChild(part) }
+        //$$ for (cuboid: ModelPart.Cuboid in this.cuboids) {
+        //$$     (modelPart as ModelPartAccessorMixin).cuboids.add(cuboid);
         //$$ }
         //#endif
         modelPart.yaw = yaw
