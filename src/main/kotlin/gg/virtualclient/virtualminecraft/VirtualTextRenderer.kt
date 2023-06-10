@@ -4,10 +4,21 @@ import gg.virtualclient.virtualminecraft.adventure.asMinecraft
 import net.kyori.adventure.text.Component
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.font.TextRenderer
+import net.minecraft.client.render.Tessellator
+import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.text.Text
 import net.minecraft.util.math.random.Random
 
+
+//#if MC>=11904
+private val TEXT_LAYER_TYPE = TextRenderer.TextLayerType.NORMAL;
+//#elseif MC>=11602
+//$$ private val TEXT_LAYER_TYPE = false;
+//#endif
+
 class VirtualTextRenderer(private val textRenderer: TextRenderer) {
+
+
 
     val fontHeight: Int
         get() {
@@ -37,19 +48,31 @@ class VirtualTextRenderer(private val textRenderer: TextRenderer) {
     }
 
     fun draw(matrices: VirtualMatrixStack, text: String, x: Float, y: Float, color: Int): Int {
-        return textRenderer.draw(matrices.toMC(), text, x, y, color)
+        val drawer = VertexConsumerProvider.immediate(Tessellator.getInstance().buffer)
+        val i = textRenderer.draw(text, x, y, color, false, matrices.peek().model, drawer, TEXT_LAYER_TYPE, 0, 15728880)
+        drawer.draw()
+        return i
     }
 
     fun drawWithShadow(matrices: VirtualMatrixStack, text: String, x: Float, y: Float, color: Int): Int {
-        return textRenderer.drawWithShadow(matrices.toMC(), text, x, y, color)
+        val drawer = VertexConsumerProvider.immediate(Tessellator.getInstance().buffer)
+        val i = textRenderer.draw(text, x, y, color, true, matrices.peek().model, drawer, TEXT_LAYER_TYPE, 0, 15728880)
+        drawer.draw()
+        return i
     }
 
     fun draw(matrices: VirtualMatrixStack, text: Text, x: Float, y: Float, color: Int): Int {
-        return textRenderer.draw(matrices.toMC(), text, x, y, color)
+        val drawer = VertexConsumerProvider.immediate(Tessellator.getInstance().buffer)
+        val i = textRenderer.draw(text, x, y, color, false, matrices.peek().model, drawer, TEXT_LAYER_TYPE, 0, 15728880)
+        drawer.draw()
+        return i
     }
 
     fun drawWithShadow(matrices: VirtualMatrixStack, text: Text, x: Float, y: Float, color: Int): Int {
-        return textRenderer.drawWithShadow(matrices.toMC(), text, x, y, color)
+        val drawer = VertexConsumerProvider.immediate(Tessellator.getInstance().buffer)
+        val i = textRenderer.draw(text, x, y, color, true, matrices.peek().model, drawer, TEXT_LAYER_TYPE, 0, 15728880)
+        drawer.draw()
+        return i
     }
 
     fun draw(matrices: VirtualMatrixStack, text: Component, x: Float, y: Float, color: Int): Int {

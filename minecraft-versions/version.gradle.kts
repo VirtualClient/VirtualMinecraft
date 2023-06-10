@@ -2,7 +2,8 @@ plugins {
     `java-library`
     kotlin("jvm")
     id("gg.virtualclient.multi-version")
-    id("gg.virtualclient.defaults")
+    id("gg.virtualclient.defaults.java")
+    id("gg.virtualclient.defaults.loom")
     id("maven-publish")
 }
 
@@ -17,9 +18,13 @@ repositories {
 dependencies {
     api(kotlin("stdlib"))
 
-    api("net.kyori:adventure-api:4.10.1")
-    api("net.kyori:adventure-text-serializer-gson:4.10.1")
-    api("net.kyori:adventure-text-serializer-legacy:4.10.1")
+    modApi("net.kyori:adventure-api:4.10.1")
+    modApi("net.kyori:adventure-text-serializer-gson:4.10.1")
+    modApi("net.kyori:adventure-text-serializer-legacy:4.10.1")
+
+    include("net.kyori:adventure-api:4.10.1")
+    include("net.kyori:adventure-text-serializer-gson:4.10.1")
+    include("net.kyori:adventure-text-serializer-legacy:4.10.1")
     implementation("gg.virtualclient:VirtualEvents:1.0.1-SNAPSHOT")
 
 }

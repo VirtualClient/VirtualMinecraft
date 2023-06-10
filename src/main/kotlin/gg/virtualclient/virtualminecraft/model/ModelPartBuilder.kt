@@ -70,7 +70,7 @@ class ModelPartBuilder {
                 textureWidth,
                 textureHeight
                 //#if MC>=11904
-                //$$ ,ALL_DIRECTIONS
+                ,ALL_DIRECTIONS
                 //#endif
             )
         )
@@ -89,7 +89,7 @@ class ModelPartBuilder {
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ,
                 0.0f, 0.0f, 0.0f, mirror, textureWidth, textureHeight
                 //#if MC>=11904
-                //$$ ,ALL_DIRECTIONS
+                ,ALL_DIRECTIONS
                 //#endif
             )
         )
@@ -109,7 +109,7 @@ class ModelPartBuilder {
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ,
                 0.0f, 0.0f, 0.0f, mirror, textureWidth, textureHeight
                 //#if MC>=11904
-                //$$ ,ALL_DIRECTIONS
+                ,ALL_DIRECTIONS
                 //#endif
             )
         )
@@ -129,7 +129,7 @@ class ModelPartBuilder {
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ, extra,
                 extra, extra, mirror, textureWidth, textureHeight
                 //#if MC>=11904
-                //$$ ,ALL_DIRECTIONS
+                ,ALL_DIRECTIONS
                 //#endif
             )
         )
@@ -151,7 +151,7 @@ class ModelPartBuilder {
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ, extraX,
                 extraY, extraZ, mirror, textureWidth, textureHeight
                 //#if MC>=11904
-                //$$ ,ALL_DIRECTIONS
+                ,ALL_DIRECTIONS
                 //#endif
             )
         )
@@ -172,7 +172,7 @@ class ModelPartBuilder {
                 textureOffsetU, textureOffsetV, x, y, z, sizeX, sizeY, sizeZ,
                 extra, extra, extra, mirror, textureWidth, textureHeight
                 //#if MC>=11904
-                //$$ ,ALL_DIRECTIONS
+                ,ALL_DIRECTIONS
                 //#endif
             )
         )

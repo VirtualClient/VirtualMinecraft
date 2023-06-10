@@ -263,9 +263,9 @@ object VirtualRenderSystem {
 
     fun enableTexture2D() {
         //#if MC>=11904
-        //$$ //Unsupported on 1.19.4?
+        //Unsupported on 1.19.4?
         //#elseif MC>=11502
-        RenderSystem.enableTexture()
+        //$$ RenderSystem.enableTexture()
         //#else
         //$$ GlStateManager.enableTexture2D()
         //#endif
@@ -273,9 +273,9 @@ object VirtualRenderSystem {
 
     fun disableTexture2D() {
         //#if MC>=11904
-        //$$ //Unsupported on 1.19.4?
+        //Unsupported on 1.19.4?
         //#elseif MC>=11502
-        RenderSystem.disableTexture();
+        //$$ RenderSystem.disableTexture();
         //#else
         //$$ GlStateManager.disableTexture2D()
         //#endif

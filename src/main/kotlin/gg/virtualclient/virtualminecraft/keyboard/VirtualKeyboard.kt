@@ -58,6 +58,16 @@ object VirtualKeyboard {
         return isKeyPressed(key.getKeyCode())
     }
 
+    @JvmStatic
+    fun getClipboardString(): String {
+        return MinecraftClient.getInstance().keyboard.clipboard
+    }
+
+    @JvmStatic
+    fun setClipboardString(string: String) {
+        MinecraftClient.getInstance().keyboard.clipboard = string
+    }
+
 
 
 }

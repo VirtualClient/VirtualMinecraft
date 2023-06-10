@@ -27,7 +27,7 @@ fun Vector3f.quaternionFromRadians(radians: Float): Quaternionf {
     return newQuaternion(this, radians, false)
 }
 
-//#if MC<=11903
+//#if MC<11903
 //$$ fun Matrix4f.scale(x: Float, y: Float, z: Float) {
 //$$     multiply(Matrix4f.scale(x, y, z))
 //$$ }
