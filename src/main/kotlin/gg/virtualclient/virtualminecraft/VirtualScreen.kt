@@ -55,6 +55,12 @@ abstract class VirtualScreen(title: Component) : Screen(title.asMinecraft()) {
     }
     //#endif
 
+    //#if MC<=11904
+    //$$ final override fun render(matrixStack: MatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
+    //$$     render(VirtualMatrixStack(matrixStack), mouseX, mouseY, delta)
+    //$$ }
+    //#endif
+
 
     open fun render(matrices: VirtualMatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
         //#if MC>=12000
@@ -180,8 +186,10 @@ abstract class VirtualScreen(title: Component) : Screen(title.asMinecraft()) {
         withDrawContext(matrices) {
             super.renderBackground(it)
         }
-        //#else
+        //#elseif MC>=11904
         //$$ super.renderBackground(matrices.toMC())
+        //#else
+        //$$ super.renderBackground(matrices.toMC(), 0)
         //#endif
     }
 }
