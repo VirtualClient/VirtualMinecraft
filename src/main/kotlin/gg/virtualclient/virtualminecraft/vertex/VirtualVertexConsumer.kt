@@ -2,6 +2,8 @@ package gg.virtualclient.virtualminecraft.vertex
 
 import gg.virtualclient.virtualminecraft.VirtualMatrixStack
 import net.minecraft.client.render.VertexConsumer
+import org.joml.Matrix3f
+import org.joml.Matrix4f
 import java.awt.Color
 
 open class VirtualVertexConsumer(private val handle: VertexConsumer) {
@@ -61,18 +63,21 @@ open class VirtualVertexConsumer(private val handle: VertexConsumer) {
     }
 
     fun vertex(stack: VirtualMatrixStack, x: Double, y: Double, z: Double): VirtualVertexConsumer {
-        handle.vertex(
-            stack.peek().model,
-            x.toFloat(),
-            y.toFloat(),
-            z.toFloat()
-        )
+        return vertex(stack.peek().model, x, y, z)
+    }
+
+    fun vertex(matrix: Matrix4f, x: Double, y: Double, z: Double): VirtualVertexConsumer {
+        handle.vertex(matrix, x.toFloat(), y.toFloat(), z.toFloat())
+        return this
+    }
+
+    fun normal(normal: Matrix3f, x: Float, y: Float, z: Float): VirtualVertexConsumer {
+        handle.normal(normal, x, y, z)
         return this
     }
 
     fun normal(stack: VirtualMatrixStack, x: Float, y: Float, z: Float): VirtualVertexConsumer {
-        handle.normal(stack.peek().normal, x, y, z)
-        return this
+        return normal(stack.peek().normal, x, y, z)
     }
 
     fun vertex(
