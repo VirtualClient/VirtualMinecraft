@@ -8,14 +8,14 @@ pluginManagement {
         maven("https://repo.essential.gg/repository/maven-public")
     }
     plugins {
-        id("gg.virtualclient.multi-version.root") version "0.1.21-SNAPSHOT"
+        id("gg.virtualclient.multi-version.root") version "0.1.22-SNAPSHOT"
     }
 }
 
 rootProject.name = "VirtualMinecraft"
 
 listOf(
-    "1.20.0-fabric",
+    "1.20.1-fabric",
     "1.19.4-fabric",
     "1.19.3-fabric",
     "1.19-fabric",
